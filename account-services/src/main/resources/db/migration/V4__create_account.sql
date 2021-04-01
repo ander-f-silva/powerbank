@@ -1,6 +1,6 @@
 create table account (
-    id binary(16) primary key,
-    customer_id binary,
+    id varchar(36) primary key,
+    customer_id varchar(36),
     amount decimal(10,2),
     amount_limit decimal(8,2)
 );

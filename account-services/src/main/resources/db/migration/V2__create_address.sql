@@ -1,6 +1,6 @@
 create table address (
-    id binary(16) primary key,
-    customer_id binary,
+    id varchar(36) primary key,
+    customer_id varchar(36),
     public_place varchar(80) not null,
     complement varchar(20) not null,
     low varchar(80) not null,

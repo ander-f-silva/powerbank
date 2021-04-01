@@ -1,6 +1,6 @@
 create table telephones (
-    id binary(16) primary key,
-    customer_id binary,
+    id varchar(36) primary key,
+    customer_id varchar(36),
     number varchar(11)
 );
 
