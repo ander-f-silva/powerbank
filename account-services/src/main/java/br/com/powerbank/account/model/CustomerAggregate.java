@@ -20,7 +20,7 @@ public record CustomerAggregate(
     @MappedCollection(idColumn = "customer_id", keyColumn = "customer_id")
     Set<Telephone> telephones
 ) {
-  public void addTelephone(String value) {
-    telephones.add(new Telephone(UUID.randomUUID().toString(), value));
+  public void addTelephone(String number) {
+    telephones.add(new Telephone(UUID.randomUUID().toString(), number));
   }
 }
