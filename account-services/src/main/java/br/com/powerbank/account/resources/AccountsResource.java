@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -26,7 +27,7 @@ class AccountsResource {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Void> registerNewAccount(@RequestBody final AccountRequest accountRequest) {
+  public ResponseEntity<Void> registerNewAccount(@Valid @RequestBody final AccountRequest accountRequest) {
     var accountAggregateRoot = accountAggregateRootFactory.create(accountRequest);
 
     accountAggregateRoot = accountRepository.save(accountAggregateRoot);
