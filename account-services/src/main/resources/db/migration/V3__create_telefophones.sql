@@ -6,6 +6,6 @@ create table telephones
 );
 
 alter table telephones
-    add constraint fk_telephones_customer foreign key (customer_id) references customerAggregate (id);
+    add constraint fk_telephones_customer foreign key (customer_id) references customer (id);
 
 

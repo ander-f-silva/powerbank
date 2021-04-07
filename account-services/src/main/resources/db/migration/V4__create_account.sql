@@ -7,6 +7,6 @@ create table account
 );
 
 alter table account
-    add constraint fk_account_customer foreign key (customer_id) references customerAggregate (id);
+    add constraint fk_account_customer foreign key (customer_id) references customer(id);
 
 

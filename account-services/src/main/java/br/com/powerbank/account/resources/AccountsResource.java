@@ -27,7 +27,7 @@ class AccountsResource {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Void> registerNewAccount(@Valid @RequestBody final AccountRequest accountRequest) {
+  public ResponseEntity<Void> registerNewAccount(@Valid @RequestBody AccountRequest accountRequest) {
     var accountAggregateRoot = accountAggregateRootFactory.create(accountRequest);
 
     accountAggregateRoot = accountRepository.save(accountAggregateRoot);

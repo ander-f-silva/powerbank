@@ -7,7 +7,10 @@ import br.com.powerbank.account.requests.AccountRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.UUID;
+import java.util.stream.Stream;
+
 import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.verify;
@@ -79,21 +84,47 @@ class AccountsResourceTest {
     verify(mockAccountRepository).save(any(AccountAggregateRoot.class));
   }
 
-  @Test
+  @ParameterizedTest
+  @MethodSource("dummyRequestInvalid")
   @DisplayName("Given not register an account when request is invalid then return status request bad request")
-  public void givenNotRegisterAnAccount_whenRequestIsInvalid_thenReturnStatusBadRequest() throws Exception {
-    var dummyRequest = """
-    {
-      "customer": null
-    }
-    """;
-
+  public void givenNotRegisterAnAccount_whenRequestIsInvalid_thenReturnStatusBadRequest(String dummyRequestInvalid) throws Exception {
     mockMvc
             .perform(
                     post(RESOURCES_ACCOUNTS)
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
-                            .content(dummyRequest))
+                            .content(dummyRequestInvalid))
             .andExpect(status().isBadRequest())
             .andExpect(header().doesNotExist(HttpHeaders.LOCATION));
+  }
+
+  static Stream<String> dummyRequestInvalid() {
+    return Stream.of(
+        """
+        {
+          "customer": null
+        }
+        """,
+        """
+        {
+          "customer": {
+            "document": null
+          }  
+        }
+        """,
+        """
+         {
+          "customer": {
+            "birthDay": null
+          }  
+         }
+        """,
+        """
+        {
+         "customer": {
+           "address": null
+         }  
+        }
+        """
+    );
   }
 }
