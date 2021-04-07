@@ -1,3 +1,3 @@
 package br.com.powerbank.account.requests;
 
-public record TelephoneRequest (String nome){}
+public record TelephoneRequest (String number){}

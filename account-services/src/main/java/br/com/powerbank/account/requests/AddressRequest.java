@@ -1,3 +1,18 @@
 package br.com.powerbank.account.requests;
 
-public record AddressRequest (String publicPlace, String complement, String low, String city, String state) {}
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public record AddressRequest (
+        @JsonProperty("publicPlace")
+        String publicPlace,
+        @JsonProperty("complement")
+        String complement,
+        @JsonProperty("district")
+        String district,
+        @JsonProperty("city")
+        String city,
+        @JsonProperty("state")
+        String state
+) {}
